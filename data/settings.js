@@ -7,4 +7,3 @@ let screenHeight2 = screenHeight / 2;
 
 let tickCounter = 0;
 let maxFPS = 30;
-let renderer = 2;
