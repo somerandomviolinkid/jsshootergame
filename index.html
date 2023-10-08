@@ -3,34 +3,31 @@
 
 <head>
     <link rel="stylesheet" href="stylesheet.css">
-    <title>Rohammud</title>
 </head>
 
 <body>
     <canvas id="gameWindow" width="600px" height="600px"></canvas>
     <div id="mapPoints"></div>
-    <form id="newMapPointDiv">
-        <div class="formDiv">
-            <label for="newPointX">New point x value:</label>
-            <input id="newPointX" type="number" name="newPointX" value="0">
-        </div>
-        <div class="formDiv">
-            <label for="newPointY">New point y value:</label>
-            <input id="newPointY" type="number" name="newPointY" value="0">
-        </div>
-        <div class="formDiv">
-            <label for="newPointPosition">New point index:</label>
-            <input id="newPointPosition" type="number" name="newPointPosition" value="0">
-        </div>
-    </form>
-    <button class="formButton" onclick="addMapPoint()">Add new point</button>
+    <div id="newMapPointDiv">
+        <form>
+            <div class="formDiv">
+                <label for="newPointX">New point x value:</label>
+                <input id="newPointX" type="text" value="0">
+            </div>
+            <div class="formDiv">
+                <label for="newPointY">New point y value:</label>
+                <input id="newPointY" type="text" value="0">
+            </div>
+            <div class="formDiv">
+                <label for="newPointPosition">New point index:</label>
+                <input id="newPointPosition" type="text" value="0">
+            </div>
+        </form>
+        <button class="formButton" onclick="addMapPoint()">Add new point</button>
+    </div>
     <p id="tpsCounter"></p>
     <button class="formButton" onclick="exportMapData()">Export map data</button>
     <button class="formButton" onclick="importMapData()">Import map data</button>
-
-    <button class="formButton" onclick="changeRenderer(0)">Render in 3d</button>
-    <button class="formButton" onclick="changeRenderer(1)">Render in 2d</button>
-    <button class="formButton" onclick="changeRenderer(2)">Render in 2d map editor view</button>
 
     <script src="data/settings.js"></script>
     <script src="scripts/util.js"></script>

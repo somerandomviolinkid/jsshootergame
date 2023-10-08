@@ -58,7 +58,6 @@ button {
     background-color: white;
     padding: 4px;
     overflow-y: hidden;
-    width: fit-content
 }
 
 label {
@@ -68,8 +67,6 @@ label {
 input {
     float: right;
     width: 20%;
-    font-size: 12px;
-    font-family: 'Courier New', Courier, monospace;
 }
 
 .formDiv {
@@ -77,8 +74,4 @@ input {
     border-width: 1px;
     border-style: solid;
     padding: 2px;
-}
-
-.formButton {
-    float: left
 }

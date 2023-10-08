@@ -7,7 +7,7 @@ let playerFov = pi / 2;
 let renderDistance = 50;
 let pointRenderDistance = 25;
 
-window.addEventListener(
+document.getElementById("gameWindow").addEventListener(
     "keydown",
     (event) => {
         if (event.defaultPrevented) {
