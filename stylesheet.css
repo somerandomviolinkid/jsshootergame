@@ -1,0 +1,77 @@
+canvas {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    float: left;
+    background-color: white;
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#tpsCounter {
+    float: left;
+    display: block;
+}
+
+body {
+    background-color: gray;
+    overflow-y: hidden;
+}
+
+#mapPoints {
+    float: left;
+    background-color: white;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    overflow-y: scroll;
+    padding: 8px;
+    height: 584px;
+    width: 250px;
+}
+
+.mapPointDiv {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px;
+    width: 95%;
+    overflow: hidden;
+}
+
+.mapCoordinateP {
+    width: fit-content;
+    float: left;
+}
+
+button {
+    display: inline;
+    float: right;
+}
+
+#newMapPointDiv {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+    padding: 4px;
+    overflow-y: hidden;
+}
+
+label {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+input {
+    float: right;
+    width: 20%;
+}
+
+.formDiv {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 2px;
+}

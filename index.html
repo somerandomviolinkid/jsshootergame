@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+    <canvas id="gameWindow" width="600px" height="600px"></canvas>
+    <div id="mapPoints"></div>
+    <div id="newMapPointDiv">
+        <form>
+            <div class="formDiv">
+                <label for="newPointX">New point x value:</label>
+                <input id="newPointX" type="text" value="0">
+            </div>
+            <div class="formDiv">
+                <label for="newPointY">New point y value:</label>
+                <input id="newPointY" type="text" value="0">
+            </div>
+            <div class="formDiv">
+                <label for="newPointPosition">New point index:</label>
+                <input id="newPointPosition" type="text" value="0">
+            </div>
+        </form>
+        <button class="formButton" onclick="addMapPoint()">Add new point</button>
+    </div>
+    <p id="tpsCounter"></p>
+    <button class="formButton" onclick="exportMapData()">Export map data</button>
+    <button class="formButton" onclick="importMapData()">Import map data</button>
+
+    <script src="data/settings.js"></script>
+    <script src="scripts/util.js"></script>
+    <script src="data/playerData.js"></script>
+    <script src="data/mapData.js"></script>
+    <script src="scripts/render2d.js"></script>
+    <script src="scripts/mapEditor.js"></script>
+    <script src="scripts/render3d.js"></script>
+    <script src="scripts/player.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>
