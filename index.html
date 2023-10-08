@@ -6,28 +6,39 @@
 </head>
 
 <body>
-    <canvas id="gameWindow" width="600px" height="600px"></canvas>
+    <div id="game">
+        <canvas id="gameWindow" width="600px" height="600px"></canvas>
+    </div>
     <div id="mapPoints"></div>
     <div id="newMapPointDiv">
         <form>
             <div class="formDiv">
                 <label for="newPointX">New point x value:</label>
-                <input id="newPointX" type="text" value="0">
+                <input id="newPointX" type="number" value="0">
             </div>
             <div class="formDiv">
                 <label for="newPointY">New point y value:</label>
-                <input id="newPointY" type="text" value="0">
+                <input id="newPointY" type="number" value="0">
             </div>
             <div class="formDiv">
                 <label for="newPointPosition">New point index:</label>
-                <input id="newPointPosition" type="text" value="0">
+                <input id="newPointPosition" type="number" value="0">
             </div>
         </form>
         <button class="formButton" onclick="addMapPoint()">Add new point</button>
+        <button class="formButton" id="editButton">Confirm edits</button>
     </div>
+    <div id="mapSettingButtons">
+        <button class="formButton" onclick="createNewMap()">Create new map</button>
+        <button class="formButton" onclick="deleteMap()">Remove current map</button>
+        <button class="formButton" onclick="exportMapData()">Export map data</button>
+        <button class="formButton" onclick="importMapData()">Import map data</button>
+    </div>
+    <div id="mapSelectorDiv">
+
+    </div>
+
     <p id="tpsCounter"></p>
-    <button class="formButton" onclick="exportMapData()">Export map data</button>
-    <button class="formButton" onclick="importMapData()">Import map data</button>
 
     <script src="data/settings.js"></script>
     <script src="scripts/util.js"></script>

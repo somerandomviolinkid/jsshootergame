@@ -11,8 +11,8 @@ function drawWalls() {
 
         let wallDists = []
 
-        for (let i = 1; i < mapData.length; i++) {
-            let intersection = lineInt(playerPos, playerViewEnd, mapData[i], mapData[i - 1]);
+        for (let i = 1; i < mapData[mapSelect].length; i++) {
+            let intersection = lineInt(playerPos, playerViewEnd, mapData[mapSelect][i], mapData[mapSelect][i - 1]);
             if (intersection != null) {
                 let dist = distance(playerPos, intersection) + playerSize;
                 //dist /= Math.cos(((playerFov / 2) + (playerFov * (screenX / screenWidth))) - playerDirection);

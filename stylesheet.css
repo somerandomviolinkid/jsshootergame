@@ -30,6 +30,7 @@ body {
     padding: 8px;
     height: 584px;
     width: 250px;
+    display: none;
 }
 
 .mapPointDiv {
@@ -38,12 +39,14 @@ body {
     border-style: solid;
     padding: 4px;
     width: 95%;
+    margin: auto;
     overflow: hidden;
 }
 
 .mapCoordinateP {
     width: fit-content;
     float: left;
+    font-size: 12px;
 }
 
 button {
@@ -57,7 +60,8 @@ button {
     border-style: solid;
     background-color: white;
     padding: 4px;
-    overflow-y: hidden;
+    overflow: hidden;
+    display: none;
 }
 
 label {
@@ -74,4 +78,37 @@ input {
     border-width: 1px;
     border-style: solid;
     padding: 2px;
+}
+
+#mapSelectorDiv {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px;
+    float: right;
+    background-color: white;
+}
+
+.formButton {
+    float: left;
+}
+
+#mapSettingButtons {
+    float: left;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    width: 150px
+}
+
+.mapSelectButton {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    padding: 4px;
+}
+
+.mapSelectButton:hover {
+    cursor: pointer;
+    background-color: blue;
+    transition: 0.4s;
 }

@@ -9,9 +9,9 @@ function drawMap() {
     ctx.lineTo(screenWidth, screenHeight / 2);
     ctx.stroke();
 
-    for (let i = 1; i < mapData.length; i++) {
-        let m = mapData[i - 1];
-        let n = mapData[i];
+    for (let i = 1; i < mapData[mapSelect].length; i++) {
+        let m = mapData[mapSelect][i - 1];
+        let n = mapData[mapSelect][i];
 
         ctx.beginPath();
         ctx.moveTo(screenWidth2 + (m.x * scale2d), screenHeight2 + (m.y * scale2d));
@@ -52,8 +52,8 @@ function playerView() {
 
     let intersections = [];
 
-    for (let i = 1; i < mapData.length; i++) {
-        let intPoint = lineInt(playerPos, playerViewEnd, mapData[i], mapData[i - 1]);
+    for (let i = 1; i < mapData[mapSelect].length; i++) {
+        let intPoint = lineInt(playerPos, playerViewEnd, mapData[mapSelect][i], mapData[mapSelect][i - 1]);
         if (intPoint != null) {
             let dist = distance(playerPos, intPoint);
             intersections.push(dist);
