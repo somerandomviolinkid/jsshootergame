@@ -1,42 +1,43 @@
 function drawWalls() {
-    for (let screenX = 0; screenX < screenWidth; screenX++) {
-        let playerViewEnd = {
-            x: playerPos.x + (Math.cos(
-                playerDirection - (playerFov / 2) + (playerFov * (screenX / screenWidth))) * renderDistance
+    for (let screenX = 0; screenX <= screenWidth; screenX++) {
+
+        let rayAngle = playerDirection + (playerFov / 2) - ((playerFov * screenX) / screenWidth);
+
+        let rayPos = {
+            x: playerPos.x + (
+                Math.cos(rayAngle) * renderDistance
             ),
-            y: playerPos.y + (Math.sin(
-                playerDirection - (playerFov / 2) + (playerFov * (screenX / screenWidth))) * renderDistance
-            )
+            y: playerPos.y + (
+                Math.sin(rayAngle) * renderDistance
+            ),
         }
 
-        let wallDists = []
+        let renderList = []
 
-        for (let i = 1; i < mapData[mapSelect].length; i++) {
-            let intersection = lineInt(playerPos, playerViewEnd, mapData[mapSelect][i], mapData[mapSelect][i - 1]);
+        for (let i = 0; i < mapData[mapSelect].length; i++) {
+            let currentWall = mapData[mapSelect][i];
+            let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
+            let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
+            let intersection = lineInt(playerPos, rayPos, vertex1, vertex2);
             if (intersection != null) {
-                let dist = distance(playerPos, intersection) + playerSize;
-                //dist /= Math.cos(((playerFov / 2) + (playerFov * (screenX / screenWidth))) - playerDirection);
-                wallDists.push(dist);
+                let dist = distance(playerPos, intersection);
+                let wallData = {d: dist, red: currentWall.r, green: currentWall.g, blue: currentWall.b}
+                renderList.push(wallData);
             }
         }
 
-        wallDists.sort((a, b) => a - b);
-        let finalDist = wallDists[0];
-        let color = 256 / finalDist;
+        renderList.sort((a, b) => a.d - b.d);
+        let finalDist = renderList[0].d;
+        finalDist *= Math.cos(playerDirection - rayAngle);
+        let shading = ((Math.pow(2, 5.5)) * Math.sqrt(finalDist));
 
-        ctx.beginPath();
-        ctx.strokeStyle = "rgb(" + color + "," + color + "," + color + ")";
-        ctx.moveTo(screenX, screenHeight2 - (screenHeight / finalDist));
-        ctx.lineTo(screenX, screenHeight2 + (screenHeight / finalDist));
-        ctx.stroke();
+        let screen1 = screenHeight2 - Math.floor(screenHeight2 / finalDist);
+        let screen2 = screenHeight2 + Math.floor(screenHeight2 / finalDist)
 
-        ctx.beginPath();
-        ctx.strokeStyle = "gray";
-        ctx.moveTo(screenX, (0));
-        ctx.lineTo(screenX, screenHeight2 - (screenHeight / finalDist));
-        ctx.moveTo(screenX, screenHeight2 + (screenHeight / finalDist));
-        ctx.lineTo(screenX, screenHeight);
-        ctx.stroke();
+        verline(screenX, 0, screen1, 96, 96, 96);
+        verline(screenX, screen1, screen2, renderList[0].red - shading, renderList[0].green - shading, renderList[0].blue - shading);
+        verline(screenX, screen2, screenHeight, 48, 48, 48);
+
     }
 }
 

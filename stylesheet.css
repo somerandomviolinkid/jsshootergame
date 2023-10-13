@@ -3,7 +3,6 @@ canvas {
     border-width: 1px;
     border-style: solid;
     float: left;
-    background-color: white;
 }
 
 p {
@@ -16,7 +15,7 @@ p {
 }
 
 body {
-    background-color: gray;
+
     overflow-y: hidden;
 }
 
@@ -29,7 +28,7 @@ body {
     overflow-y: scroll;
     padding: 8px;
     height: 584px;
-    width: 250px;
+    width: 400px;
     display: none;
 }
 

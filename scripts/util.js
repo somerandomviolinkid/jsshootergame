@@ -32,3 +32,16 @@ function lineInt(point1, point2, point3, point4) {
         return null;
     }
 }
+
+function verline(x, y0, y1, r, g, b) {
+    ctx.beginPath();
+    ctx.strokeStyle = "rgb(" + r + "," + g + "," + b + ")";
+    ctx.moveTo(x, y0);
+    ctx.lineTo(x, y1);
+    ctx.stroke();
+}
+
+function convertCoordinatesToObject(x, y) {
+    let pointObj = {x: x, y: y}
+    return pointObj;
+}

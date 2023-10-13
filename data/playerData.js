@@ -2,8 +2,8 @@ let playerPos = { x: 0, y: 0 }
 let playerDirection = 0;
 let playerSpeed = 0.25;
 let playerSize = 0.5;
-let playerRotateSpeed = pi / 32;
-let playerFov = pi / 2;
+let playerRotateSpeed = pi / 64;
+let playerFov = pi / 3;
 let renderDistance = 50;
 let pointRenderDistance = 25;
 
@@ -33,8 +33,12 @@ function enableMovement() {
                         x: playerPos.x + playerMoveCos + playerSizeCos,
                         y: playerPos.y + playerMoveSin + playerSizeSin
                     }
-                    for (let i = 1; i < mapData.length; i++) {
-                        let intersection = lineInt(playerPos, playerEndSize, mapData[i], mapData[i - 1]);
+
+                    for (let i = 0; i < mapData[mapSelect].length; i++) {
+                        let currentWall = mapData[mapSelect][i];
+                        let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
+                        let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
+                        let intersection = lineInt(playerPos, playerEndSize, vertex1, vertex2);
                         if (intersection === null) {
                             continue;
                         } else {
@@ -51,8 +55,11 @@ function enableMovement() {
                         x: playerPos.x - playerMoveCos - playerSizeCos,
                         y: playerPos.y - playerMoveSin - playerSizeSin
                     }
-                    for (let i = 1; i < mapData.length; i++) {
-                        let intersection = lineInt(playerPos, playerEndSize, mapData[i], mapData[i - 1]);
+                    for (let i = 0; i < mapData[mapSelect].length; i++) {
+                        let currentWall = mapData[mapSelect][i];
+                        let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
+                        let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
+                        let intersection = lineInt(playerPos, playerEndSize, vertex1, vertex2);
                         if (intersection === null) {
                             continue;
                         } else {
@@ -64,13 +71,16 @@ function enableMovement() {
                     }
                     break;
                 case "KeyA":
-                    playerEnd = { x: playerPos.x + playerMoveSin, y: playerPos.y - playerMoveCos };
+                    playerEnd = { x: playerPos.x - playerMoveSin, y: playerPos.y + playerMoveCos };
                     playerEndSize = {
-                        x: playerPos.x + playerMoveSin - playerSizeCos,
-                        y: playerPos.y - playerMoveCos + playerSizeSin
+                        x: playerPos.x - playerMoveSin,
+                        y: playerPos.y + playerMoveCos
                     }
-                    for (let i = 1; i < mapData.length; i++) {
-                        let intersection = lineInt(playerPos, playerEnd, mapData[i], mapData[i - 1]);
+                    for (let i = 0; i < mapData[mapSelect].length; i++) {
+                        let currentWall = mapData[mapSelect][i];
+                        let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
+                        let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
+                        let intersection = lineInt(playerPos, playerEndSize, vertex1, vertex2);
                         if (intersection === null) {
                             continue;
                         } else {
@@ -82,13 +92,16 @@ function enableMovement() {
                     }
                     break;
                 case "KeyD":
-                    playerEnd = { x: playerPos.x - playerMoveSin, y: playerPos.y + playerMoveCos };
+                    playerEnd = { x: playerPos.x + playerMoveSin, y: playerPos.y - playerMoveCos };
                     playerEndSize = {
-                        x: playerPos.x - playerMoveSin + playerSizeCos,
-                        y: playerPos.y + playerMoveCos + playerSizeSin
+                        x: playerPos.x + playerMoveSin,
+                        y: playerPos.y - playerMoveCos
                     }
-                    for (let i = 1; i < mapData.length; i++) {
-                        let intersection = lineInt(playerPos, playerEnd, mapData[i], mapData[i - 1]);
+                    for (let i = 0; i < mapData[mapSelect].length; i++) {
+                        let currentWall = mapData[mapSelect][i];
+                        let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
+                        let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
+                        let intersection = lineInt(playerPos, playerEndSize, vertex1, vertex2);
                         if (intersection === null) {
                             continue;
                         } else {
@@ -100,10 +113,10 @@ function enableMovement() {
                     }
                     break;
                 case "KeyE":
-                    playerDirection += playerRotateSpeed;
+                    playerDirection -= playerRotateSpeed;
                     break;
                 case "KeyQ":
-                    playerDirection -= playerRotateSpeed;
+                    playerDirection += playerRotateSpeed;
                     break;
             }
 

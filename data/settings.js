@@ -7,6 +7,6 @@ let screenHeight2 = screenHeight / 2;
 
 let tickCounter = 0;
 let maxFPS = 30;
-let renderer = 2;
+let renderer = 0;
 
 let mapSelect = 0;

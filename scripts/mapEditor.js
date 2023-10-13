@@ -44,27 +44,38 @@ function removeMapPoint(index) {
     createList();
     drawMap();
     drawPlayer();
-    document.getElementById("newPointPosition").value = mapData[mapSelect].length;
+    document.getElementById("newPointIndex").value = mapData[mapSelect].length;
 }
 
 function addMapPoint() {
-    let newPoint = {
-        x: Number(document.getElementById("newPointX").value),
-        y: Number(document.getElementById("newPointY").value)
-    }
-    let index = Number(document.getElementById("newPointPosition").value);
-    mapData[mapSelect].splice(index, 0, newPoint);
+    let wall = new newWall(
+        Number(document.getElementById("newPointX1").value),
+        Number(document.getElementById("newPointY1").value),
+        Number(document.getElementById("newPointX2").value),
+        Number(document.getElementById("newPointY2").value),
+        Number(document.getElementById("newPointColorR").value),
+        Number(document.getElementById("newPointColorG").value),
+        Number(document.getElementById("newPointColorB").value)
+    )
+    let index = Number(document.getElementById("newPointIndex").value);
+    mapData[mapSelect].splice(index, 0, wall);
     createList();
     drawMap();
     drawPlayer();
-    document.getElementById("newPointPosition").value = mapData[mapSelect].length;
+    document.getElementById("newPointIndex").value = mapData[mapSelect].length;
 }
 
 function editMapPoint(index) {
     document.getElementById("mapPoint" + index).style.backgroundColor = "blue";
-    document.getElementById("newPointX").value = mapData[mapSelect][index].x;
-    document.getElementById("newPointY").value = mapData[mapSelect][index].y;
-    document.getElementById("newPointPosition").value = index;
+
+    document.getElementById("newPointX1").value = mapData[mapSelect][index].x1;
+    document.getElementById("newPointY1").value = mapData[mapSelect][index].y1;
+    document.getElementById("newPointX2").value = mapData[mapSelect][index].x2;
+    document.getElementById("newPointY2").value = mapData[mapSelect][index].y2;
+    document.getElementById("newPointColorR").value = mapData[mapSelect][index].r;
+    document.getElementById("newPointColorG").value = mapData[mapSelect][index].g;
+    document.getElementById("newPointColorB").value = mapData[mapSelect][index].b;
+    document.getElementById("newPointIndex").value = index;
 
     document.getElementById("editButton").onclick = function () {
         confirmEdit(index);
@@ -83,9 +94,14 @@ function editMapPoint(index) {
 }
 
 function confirmEdit(index) {
-    mapData[mapSelect][index].x = document.getElementById("newPointX").value;
-    mapData[mapSelect][index].y = document.getElementById("newPointY").value;
-    document.getElementById("newPointPosition").value = mapData[mapSelect].length;
+    mapData[mapSelect][index].x1 = document.getElementById("newPointX1").value;
+    mapData[mapSelect][index].y1 = document.getElementById("newPointY1").value;
+    mapData[mapSelect][index].x2 = document.getElementById("newPointX2").value;
+    mapData[mapSelect][index].y2 = document.getElementById("newPointY2").value;
+    mapData[mapSelect][index].r = document.getElementById("newPointColorR").value;
+    mapData[mapSelect][index].g = document.getElementById("newPointColorG").value;
+    mapData[mapSelect][index].b = document.getElementById("newPointColorB").value;
+    
     document.getElementById("mapPoint" + index).style.backgroundColor = "white";
 
     let buttons1 = document.getElementsByClassName("editButtons");
@@ -171,9 +187,17 @@ function deleteMap() {
     drawPlayer();
 }
 
-function selectPoint(event) {
-    document.getElementById("newPointX").value = (event.clientX - screenWidth2) / scale2d;
-    document.getElementById("newPointY").value = (event.clientY - screenHeight2) / scale2d;
-    document.getElementById("newPointPosition").value = mapData[mapSelect].length;
+let pointSelect = 1;
 
+function selectPoint(event) {
+    if (pointSelect === 1) {
+        document.getElementById("newPointX1").value = (event.clientX - screenWidth2) / scale2d;
+        document.getElementById("newPointY1").value = (screenHeight2 - event.clientY) / scale2d;
+        pointSelect++;
+    } else {
+        document.getElementById("newPointX2").value = (event.clientX - screenWidth2) / scale2d;
+        document.getElementById("newPointY2").value = (screenHeight2 - event.clientY) / scale2d;
+        pointSelect = 1;
+    }
+    document.getElementById("newPointIndex").value = mapData[mapSelect].length;
 }
