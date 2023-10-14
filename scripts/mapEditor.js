@@ -20,7 +20,8 @@ function createList() {
         editButton.className = "editButtons";
         editButton.id = "editButton" + i;
 
-        const coordinates = JSON.stringify(mapData[mapSelect][i]);
+        let coordinates = JSON.stringify(mapData[mapSelect][i]);
+        coordinates = coordinates.replaceAll(":", ": ");
 
         document.getElementById("mapPoints").appendChild(newDiv);
         document.getElementById("mapPoint" + i).appendChild(newP);
@@ -145,6 +146,7 @@ async function importMapData() {
 
 function selectMap(number) {
     mapSelect = number;
+    playerPos = {x: 0, y: 0}
     createList();
     drawMap();
     drawPlayer();

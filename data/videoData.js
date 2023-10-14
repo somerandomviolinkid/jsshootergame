@@ -1,1 +1,3 @@
 let points = []
+
+let bullets = []

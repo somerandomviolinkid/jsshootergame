@@ -5,70 +5,76 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 
-<body>
+<body id="body">
     <div id="game">
         <canvas id="gameWindow" width="600px" height="600px"></canvas>
     </div>
     <div id="mapPoints"></div>
-    <div id="newMapPointDiv">
-        <form>
-            <div class="formDiv">
-                <label for="newPointX1">X1:</label>
-                <input id="newPointX1" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointY1">Y1:</label>
-                <input id="newPointY1" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointX2">X2:</label>
-                <input id="newPointX2" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointY2">Y2:</label>
-                <input id="newPointY2" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointColorR">R:</label>
-                <input id="newPointColorR" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointColorG">G:</label>
-                <input id="newPointColorG" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointColorB">B:</label>
-                <input id="newPointColorB" type="number" value="0">
-            </div>
-            <div class="formDiv">
-                <label for="newPointIndex">Index:</label>
-                <input id="newPointIndex" type="number" value="0">
-            </div>
-        </form>
-        <button class="formButton" onclick="addMapPoint()">Add new point</button>
-        <button class="formButton" id="editButton">Confirm edits</button>
-    </div>
+
     <div id="mapSettingButtons">
+        <div id="mapSelectorDiv">
+            <p id="tpsCounter">TPS: 0</p>
+        </div>
+        <button class="formButton" onclick="switchRenderer(0)">Render in 3d</button>
+        <button class="formButton" onclick="switchRenderer(1)">Render in 2d</button>
+        <button class="formButton" onclick="switchRenderer(2)">View map editor</button>
+
         <button class="formButton" onclick="createNewMap()">Create new map</button>
         <button class="formButton" onclick="deleteMap()">Remove current map</button>
         <button class="formButton" onclick="exportMapData()">Export map data</button>
         <button class="formButton" onclick="importMapData()">Import map data</button>
     </div>
-    <div id="mapSelectorDiv">
 
-    </div>
-
-    <p id="tpsCounter"></p>
-
-    <script src="data/settings.js"></script>
-    <script src="scripts/util.js"></script>
-    <script src="data/playerData.js"></script>
-    <script src="data/mapData.js"></script>
-    <script src="scripts/render2d.js"></script>
-    <script src="scripts/mapEditor.js"></script>
-    <script src="scripts/render3d.js"></script>
-    <script src="scripts/player.js"></script>
-    <script src="scripts/main.js"></script>
 </body>
+<div id="newMapPointDiv">
+    <form>
+        <div class="formDiv">
+            <label for="newPointX1">X1:</label>
+            <input id="newPointX1" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointY1">Y1:</label>
+            <input id="newPointY1" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointX2">X2:</label>
+            <input id="newPointX2" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointY2">Y2:</label>
+            <input id="newPointY2" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointColorR">R:</label>
+            <input id="newPointColorR" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointColorG">G:</label>
+            <input id="newPointColorG" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointColorB">B:</label>
+            <input id="newPointColorB" type="number" value="0">
+        </div>
+        <div class="formDiv">
+            <label for="newPointIndex">Index:</label>
+            <input id="newPointIndex" type="number" value="0">
+        </div>
+    </form>
+    <button class="formButton" onclick="addMapPoint()">Add new point</button>
+    <button class="formButton" id="editButton">Confirm edits</button>
+</div>
+
+<script src="data/videoData.js"></script>
+<script src="data/settings.js"></script>
+<script src="scripts/util.js"></script>
+<script src="scripts/player.js"></script>
+<script src="data/playerData.js"></script>
+<script src="data/mapData.js"></script>
+<script src="scripts/render2d.js"></script>
+<script src="scripts/mapEditor.js"></script>
+<script src="scripts/render3d.js"></script>
+<script src="scripts/player.js"></script>
+<script src="scripts/main.js"></script>
 
 </html>

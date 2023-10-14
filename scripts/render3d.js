@@ -29,14 +29,14 @@ function drawWalls() {
         renderList.sort((a, b) => a.d - b.d);
         let finalDist = renderList[0].d;
         finalDist *= Math.cos(playerDirection - rayAngle);
-        let shading = ((Math.pow(2, 5.5)) * Math.sqrt(finalDist));
+        let shading = ((Math.pow(2, 5)) * Math.sqrt(finalDist));
 
         let screen1 = screenHeight2 - Math.floor(screenHeight2 / finalDist);
         let screen2 = screenHeight2 + Math.floor(screenHeight2 / finalDist)
 
         verline(screenX, 0, screen1, 96, 96, 96);
         verline(screenX, screen1, screen2, renderList[0].red - shading, renderList[0].green - shading, renderList[0].blue - shading);
-        verline(screenX, screen2, screenHeight, 48, 48, 48);
+        verline(screenX, screen2, screenHeight, 64, 64, 64);
 
     }
 }
@@ -60,11 +60,19 @@ function drawPoints() {
 }
 */
 
+function drawBullets(distance) {
+    for (let i = 0; i < bullets.length; i++) {
+        
+    }
+}
+
 
 function frame3d() {
     ctx.clearRect(0, 0, screenWidth, screenHeight)
     drawWalls();
+    drawBullets();
     //drawPoints();
     tickCounter++;
 }
+
 

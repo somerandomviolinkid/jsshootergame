@@ -27,8 +27,8 @@ body {
     border-style: solid;
     overflow-y: scroll;
     padding: 8px;
-    height: 584px;
-    width: 400px;
+    height: 592px;
+    width: 300px;
     display: none;
 }
 
@@ -60,6 +60,7 @@ button {
     background-color: white;
     padding: 4px;
     overflow: hidden;
+    float: right;
     display: none;
 }
 
@@ -84,12 +85,21 @@ input {
     border-width: 1px;
     border-style: solid;
     padding: 4px;
-    float: right;
+    float: left;
+    display: block;
     background-color: white;
 }
 
 .formButton {
-    float: left;
+    width: 98%;
+    margin: auto;
+    font-size: 14px;
+}
+
+.formButton:hover {
+    cursor: pointer;
+    transition: 0.4s;
+    background-color: darkgrey;
 }
 
 #mapSettingButtons {
@@ -110,4 +120,14 @@ input {
     cursor: pointer;
     background-color: blue;
     transition: 0.4s;
+}
+
+#gameWindow {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    padding: 4px;
+    width: fit-content;
+    height: fit-content;
+    display: inline;
 }
