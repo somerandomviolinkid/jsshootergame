@@ -12,15 +12,16 @@ function shoot() {
             x: playerPos.x + (Math.cos(playerDirection) * renderDistance),
             y: playerPos.y + (Math.sin(playerDirection) * renderDistance)
         }
-        let intersection = intersection(playerPos, end, vertex1, vertex2);
-        if (intersection != null) {
-            let dist = distance(playerPos, intersection);
+        let intPoint = lineInt(playerPos, end, vertex1, vertex2);
+        if (intPoint != null) {
+            let dist = distance(playerPos, intPoint);
+            wallDists.push(dist);
         }
-        wallDists.push(dist);
     }
-    renderList.sort((a, b) => a - b);
-    let finalDist = renderList[0];
+    wallDists.sort((a, b) => a - b);
+    let finalDist = wallDists[0];
 
+    bullets.push({playerDist: 0, endDist: finalDist});
 }
 
 
@@ -134,7 +135,7 @@ document.getElementById("body").addEventListener(
                 playerDirection += playerRotateSpeed;
                 break;
             case "Space":
-                console.log("booyah")
+                shoot();
         }
 
     }, true);

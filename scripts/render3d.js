@@ -60,9 +60,15 @@ function drawPoints() {
 }
 */
 
-function drawBullets(distance) {
+function drawBullets() {
     for (let i = 0; i < bullets.length; i++) {
-        
+        if (bullets[i].playerDist > bullets[i].endDist) {
+            bullets.splice(i, 1);
+            continue;
+        }
+        ctx.fillStyle = "red";
+        ctx.fillRect(screenWidth2, screenHeight - ((screenHeight2 / 2) + ((screenHeight2 / 2) * (bullets[i].playerDist / bullets[i].endDist))), 5, 5);
+        bullets[i].playerDist += 10 / maxFPS;
     }
 }
 
