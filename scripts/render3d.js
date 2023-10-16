@@ -76,13 +76,15 @@ function drawBullets() {
         let bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
         let bulletDist = distance(playerPos, bulletPos);
 
-        ctx.fillStyle = "rgb(" + (255 / bulletDist) + ", 0, 0)";
+        ctx.fillStyle = "rgb(" + (255 - ((Math.pow(2, 5)) * Math.sqrt(bulletDist))) + ", 0, 0)";
         let bulletDist2 = Math.pow(bulletDist, 2);
+        let bulletCamera = worldPosToCameraPos(bulletPos);
         ctx.fillRect(
-            screenWidth2 - (bulletDist * Math.sin(bullets[i].direction - playerDirection)),
+            //black magic fuckery
+            screenWidth2 + (bulletCamera.x * screenWidth2 / 2),
             screenHeight - ((bulletDist2 * screenHeight2) / (1 + bulletDist2)),
-            10 / bulletDist,
-            10 / bulletDist
+            25 / bulletDist,
+            25 / bulletDist
         );
 
         //updates bullet distance and deletes it if it hits the intersection point
@@ -90,12 +92,25 @@ function drawBullets() {
         bullets[i].currentPosY += (10 / maxFPS) * Math.sin(playerDirection);
         bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
         bulletDist = distance(playerPos, bulletPos);
+
         if (bulletDist >= bullets[i].endDist) {
-            bullets.splice(i, 1)
+            ctx.beginPath();
+            ctx.fillStyle = "gray"
+            ctx.ellipse(
+                screenWidth2 + (bulletCamera.x * screenWidth2 / 2), 
+                screenHeight2, 
+                25 / bulletDist, 
+                25 / bulletDist,
+                0,
+                0,
+                pi * 2,
+                false
+            )
+            ctx.fill();
+            bullets.splice(i, 1);
         }
     }
 }
-
 
 function frame3d() {
     ctx.clearRect(0, 0, screenWidth, screenHeight)

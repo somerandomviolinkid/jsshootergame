@@ -1,8 +1,6 @@
 let c = document.getElementById("gameWindow");
 let ctx = c.getContext("2d");
 
-let pi = Math.PI;
-
 function distance(point1, point2) {
     //if you don't know what this does go to a mental hopsital
     return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
@@ -58,4 +56,13 @@ function normalizeAngle(angle) {
         angle -= Math.PI * 2;
     }
     return angle;
+}
+
+function worldPosToCameraPos(position) {
+    //translates a world position into camera space ??
+    const result = {x: position.x - playerPos.x, y: position.y - playerPos.y};
+    return {
+        x: (result.x * Math.sin(playerDirection)) - (result.y * Math.cos(playerDirection)),
+        y: (result.x * Math.cos(playerDirection)) + (result.y * Math.sin(playerDirection))
+    }
 }
