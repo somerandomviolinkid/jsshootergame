@@ -1,6 +1,7 @@
 function drawWalls() {
     for (let screenX = 0; screenX <= screenWidth; screenX++) {
 
+        //information about the current ray
         let rayAngle = playerDirection + (playerFov / 2) - ((playerFov * screenX) / screenWidth);
 
         let rayPos = {
@@ -15,17 +16,19 @@ function drawWalls() {
         let renderList = []
 
         for (let i = 0; i < mapData[mapSelect].length; i++) {
+            //calculate which walls the ray hits
             let currentWall = mapData[mapSelect][i];
             let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
             let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
             let intersection = lineInt(playerPos, rayPos, vertex1, vertex2);
             if (intersection != null) {
                 let dist = distance(playerPos, intersection);
-                let wallData = {d: dist, red: currentWall.r, green: currentWall.g, blue: currentWall.b}
+                let wallData = { d: dist, red: currentWall.r, green: currentWall.g, blue: currentWall.b }
                 renderList.push(wallData);
             }
         }
 
+        //determines which wall will be drawn draws it
         renderList.sort((a, b) => a.d - b.d);
         let finalDist = renderList[0].d;
         finalDist *= Math.cos(playerDirection - rayAngle);
@@ -62,13 +65,34 @@ function drawPoints() {
 
 function drawBullets() {
     for (let i = 0; i < bullets.length; i++) {
-        if (bullets[i].playerDist > bullets[i].endDist) {
-            bullets.splice(i, 1);
+        if (
+            //doesn't draw bullet if not in fov
+            bullets[i].direction > normalizeAngle(playerDirection + (playerFov / 2)) &&
+            bullets[i].direction < normalizeAngle(playerDirection - (playerFov / 2))
+        ) {
             continue;
         }
-        ctx.fillStyle = "red";
-        ctx.fillRect(screenWidth2, screenHeight - ((screenHeight2 / 2) + ((screenHeight2 / 2) * (bullets[i].playerDist / bullets[i].endDist))), 5, 5);
-        bullets[i].playerDist += 10 / maxFPS;
+
+        let bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
+        let bulletDist = distance(playerPos, bulletPos);
+
+        ctx.fillStyle = "rgb(" + (255 / bulletDist) + ", 0, 0)";
+        let bulletDist2 = Math.pow(bulletDist, 2);
+        ctx.fillRect(
+            screenWidth2 - (bulletDist * Math.sin(bullets[i].direction - playerDirection)),
+            screenHeight - ((bulletDist2 * screenHeight2) / (1 + bulletDist2)),
+            10 / bulletDist,
+            10 / bulletDist
+        );
+
+        //updates bullet distance and deletes it if it hits the intersection point
+        bullets[i].currentPosX += (10 / maxFPS) * Math.cos(playerDirection);
+        bullets[i].currentPosY += (10 / maxFPS) * Math.sin(playerDirection);
+        bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
+        bulletDist = distance(playerPos, bulletPos);
+        if (bulletDist >= bullets[i].endDist) {
+            bullets.splice(i, 1)
+        }
     }
 }
 

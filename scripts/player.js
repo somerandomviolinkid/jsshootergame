@@ -5,6 +5,7 @@ function verifyMovement() {
 function shoot() {
     let wallDists = [];
     for (let i = 0; i < mapData[mapSelect].length; i++) {
+        //find shortest distance between player and a wall
         let currentWall = mapData[mapSelect][i];
         let vertex1 = convertCoordinatesToObject(currentWall.x1, currentWall.y1);
         let vertex2 = convertCoordinatesToObject(currentWall.x2, currentWall.y2);
@@ -18,10 +19,18 @@ function shoot() {
             wallDists.push(dist);
         }
     }
+
+    //sort distances based on shortest one
     wallDists.sort((a, b) => a - b);
     let finalDist = wallDists[0];
 
-    bullets.push({playerDist: 0, endDist: finalDist});
+    //send bullet information to video data for rendering
+    bullets.push({
+        currentPosX: playerPos.x,
+        currentPosY: playerPos.y,
+        endDist: finalDist,
+        direction: playerDirection
+    });
 }
 
 
@@ -130,9 +139,11 @@ document.getElementById("body").addEventListener(
                 break;
             case "KeyE":
                 playerDirection -= playerRotateSpeed;
+                playerDirection = normalizeAngle(playerDirection);
                 break;
             case "KeyQ":
                 playerDirection += playerRotateSpeed;
+                playerDirection = normalizeAngle(playerDirection);
                 break;
             case "Space":
                 shoot();
