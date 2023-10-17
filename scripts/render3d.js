@@ -75,21 +75,22 @@ function drawBullets() {
 
         let bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
         let bulletDist = distance(playerPos, bulletPos);
+        let bulletSize = 25 / bulletDist;
 
         ctx.fillStyle = "rgb(" + (255 - ((Math.pow(2, 5)) * Math.sqrt(bulletDist))) + ", 0, 0)";
         let bulletDist2 = Math.pow(bulletDist, 2);
         let bulletCamera = worldPosToCameraPos(bulletPos);
         ctx.fillRect(
             //black magic fuckery
-            screenWidth2 + (bulletCamera.x * screenWidth2 / 2),
-            screenHeight - ((bulletDist2 * screenHeight2) / (1 + bulletDist2)),
-            25 / bulletDist,
-            25 / bulletDist
+            screenWidth2 + ((bulletCamera.x * screenWidth) / bulletDist),
+            screenHeight - ((bulletDist2 * screenHeight2) / (1 + bulletDist2)) - (bulletSize / 2),
+            bulletSize,
+            bulletSize
         );
 
         //updates bullet distance and deletes it if it hits the intersection point
-        bullets[i].currentPosX += (10 / maxFPS) * Math.cos(playerDirection);
-        bullets[i].currentPosY += (10 / maxFPS) * Math.sin(playerDirection);
+        bullets[i].currentPosX += (10 / maxFPS) * Math.cos(bullets[i].direction);
+        bullets[i].currentPosY += (10 / maxFPS) * Math.sin(bullets[i].direction);
         bulletPos = convertCoordinatesToObject(bullets[i].currentPosX, bullets[i].currentPosY);
         bulletDist = distance(playerPos, bulletPos);
 
@@ -97,10 +98,10 @@ function drawBullets() {
             ctx.beginPath();
             ctx.fillStyle = "gray"
             ctx.ellipse(
-                screenWidth2 + (bulletCamera.x * screenWidth2 / 2), 
-                screenHeight2, 
-                25 / bulletDist, 
-                25 / bulletDist,
+                screenWidth2 + ((bulletCamera.x * screenWidth) / bulletDist), 
+                screenHeight - ((bulletDist2 * screenHeight2) / (1 + bulletDist2)), 
+                60 / bulletDist, 
+                60 / bulletDist,
                 0,
                 0,
                 pi * 2,
